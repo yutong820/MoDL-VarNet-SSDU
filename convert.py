@@ -38,7 +38,7 @@ def get_coil_sens(k):
 def undersample_mask(ground, acc):        
      _, _, y, x = ground.shape
      mask_cartes = np.zeros([y, x])
-     mask_cartes[::2, :] = 1
+     mask_cartes[::4, :] = 1
      # common_mask = samp.poisson([y, x], acc)
      mask_height, mask_width = mask_cartes.shape
      start_y = (mask_height - 384) // 2
@@ -75,11 +75,11 @@ def process_file(file_list):
 
 path = './processedData/processed'
 processed_dir = './processedData'
-processed_file = 'fastMRI_2_cart.h5'
+processed_file = 'fastMRI_4_cart.h5'
 processed_path = os.path.join(processed_dir, processed_file)
 files = os.listdir(path)
-train_files = files[:15]
-test_files = files[15:25]
+train_files = files[:25]
+test_files = files[25:50]
 
 train_ground_recon, train_csm, train_us_mask = process_file(train_files)
 test_ground_recon, test_csm, test_us_mask = process_file(test_files)
