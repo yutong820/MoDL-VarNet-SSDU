@@ -5,7 +5,6 @@ import numpy as np
 import sigpy as sp
 from sigpy.mri import app
 import torch
-from sigpy.mri import samp
 
 def ground_k(file):
      with h5py.File(file, 'r') as f:
