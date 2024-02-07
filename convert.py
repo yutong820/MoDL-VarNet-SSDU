@@ -15,7 +15,9 @@ def ground_k(file):
 def get_ground(k):
      recon = sp.rss(sp.ifft(k, axes=[-2, -1]), axes=(-3))
      combine_recon = sp.resize(recon, oshape = [k.shape[0], 384, 384]) 
-     combine_recon = combine_recon / np.linalg.norm(combine_recon) * 100
+     combine_recon = combine_recon / np.linalg.norm(combine_recon) * 100 # norm to 0 -100
+     # norm to 0 - 1
+     combine_recon = (combine_recon - np.min(combine_recon)) / (np.max(combine_recon) - np.min(combine_recon))
      return combine_recon
 
 def get_coil_sens(k):
@@ -74,7 +76,7 @@ def process_file(file_list):
 
 path = './processedData/processed'
 processed_dir = './processedData'
-processed_file = 'fastMRI_4_cart.h5'
+processed_file = 'fastMRI_4_cart_0_1.h5'
 processed_path = os.path.join(processed_dir, processed_file)
 files = os.listdir(path)
 train_files = files[:25]
