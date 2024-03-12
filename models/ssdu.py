@@ -103,7 +103,8 @@ class SSDU(nn.Module):
         self.dw = ResNet()
         self.dc = data_consistency()
         
-    def forward(self, x0, csm, mask):
+    # def forward(self, x0, csm, mask):
+    def forward(self, x0, csm, mask1, mask2):
         """
         :x0: zero-filled reconstruction (B, 2, nrow, ncol) - float32
         :csm: coil sensitivity map (B, ncoil, nrow, ncol) - complex64
@@ -115,6 +116,12 @@ class SSDU(nn.Module):
             # cnn denoiser
             z_k = self.dw(x_k) # (2, nrow, ncol)
             # data consistency
-            x_k = self.dc(z_k, x0, csm, mask) # (2, nrow, ncol)
-        return x_k
+            x_k = self.dc(z_k, x0, csm, mask1) # (2, nrow, ncol)
+        
+        # # use loss_mask to calculate  ZT
+        S = mri.SenseOp(csm, mask2) 
+        y_loss = S.fwd(r2c(x_k, axis=1))
+        
+        return c2r(y_loss, axis=1), x_k
+        # return x_k
     
