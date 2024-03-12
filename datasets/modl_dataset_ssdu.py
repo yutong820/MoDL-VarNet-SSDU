@@ -6,6 +6,8 @@ import numpy as np
 from utils import *
 from models import mri
 
+from ssdu_mask import ssdu_masks
+
 class modl_dataset(Dataset):
     def __init__(self, mode, dataset_path, sigma=0.01):
         """
@@ -25,21 +27,37 @@ class modl_dataset(Dataset):
         with h5.File(self.dataset_path, 'r') as f:
             gt, csm, mask = f[self.prefix+'Org'][index], f[self.prefix+'Csm'][index], f[self.prefix+'Mask'][index]
     
-        if self.prefix == 'trn':
-            from ssdu_mask import ssdu_masks
-            ssdu = ssdu_masks()
-            # print(f'gt.shape {gt.shape}')
-            k_space_ref = image_to_kspace_single_coil(gt).astype(np.complex64)
-            # k_space = np.transpose(k_space_ref, (1, 2, 0))
-            trn_mask, loss_mask = ssdu.Gaussian_selection(k_space_ref, mask, std_scale=4)
-            trn_mask = trn_mask.astype(np.int8)
-            loss_mask = loss_mask.astype(np.int8)
-            x0 = undersample_(gt, csm, trn_mask, self.sigma)
-
-            return torch.from_numpy(c2r(x0)), torch.from_numpy(c2r(k_space_ref)), torch.from_numpy(c2r(gt)), torch.from_numpy(csm), torch.from_numpy(trn_mask), torch.from_numpy(loss_mask)
-        else:
-            x0 = undersample_(gt, csm, mask, self.sigma)
-            return torch.from_numpy(c2r(x0)), torch.from_numpy(c2r(gt)), torch.from_numpy(c2r(csm)), torch.from_numpy(mask)
+            if self.prefix == 'trn':
+                
+                ssdu = ssdu_masks()
+                SenseOp = mri.SenseOp(csm[np.newaxis,:,:,:], mask[np.newaxis,:,:]) 
+                k_space_usamp = SenseOp.fwd(gt[np.newaxis,:,:])  
+                k_space_usamp = k_space_usamp.numpy()
+               
+                k_split_mask = np.transpose(k_space_usamp[0], (1, 2, 0))
+     
+                # trn_mask, loss_mask = mask, mask   
+                trn_mask, loss_mask = ssdu.uniform_selection(k_split_mask, mask)
+                trn_mask = trn_mask.astype(np.int8)
+                loss_mask = loss_mask.astype(np.int8)
+                x0 = undersample_(gt, csm, trn_mask, self.sigma)
+                
+                k_space_lossf = loss_mask * k_space_usamp 
+                
+                # mask shape:(384, 384)
+                # k_space_usamp:(1, 16, 384, 384)
+                # loss mask: (384, 384)
+                # k_space_lossf: (1, 16, 384, 384)
+                
+                return torch.from_numpy(c2r(x0)), \
+                    torch.from_numpy(c2r(k_space_lossf[0])), \
+                        torch.from_numpy(c2r(gt)), \
+                            torch.from_numpy(csm), \
+                                torch.from_numpy(trn_mask), \
+                                    torch.from_numpy(loss_mask)  
+            else:
+                x0 = undersample_(gt, csm, mask, self.sigma)
+                return torch.from_numpy(c2r(x0)), torch.from_numpy(c2r(gt)), torch.from_numpy((csm)), torch.from_numpy(mask)
             
     def __len__(self):
         with h5.File(self.dataset_path, 'r') as f:
