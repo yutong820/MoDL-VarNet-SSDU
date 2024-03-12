@@ -53,6 +53,11 @@ def setup(args):
     #dataloaders, model, loss f, score f, optimizer, scheduler================================
     dataloaders = get_loaders(dataset_name, dataset_params, batch_size, phases)
     model = get_model(model_name, model_params, device)
+    
+    # all trainable module parameters
+    num_parameters = sum(p.numel() for p in model.parameters() if p.requires_grad)
+    print(f'Total number of trainable parameters: {num_parameters}')
+
     loss_f = get_loss(loss_name)
     score_fs = get_score_fs(score_names)
     val_score_name = score_names[0]
@@ -148,7 +153,7 @@ def main(args):
             saver.save_checkpoints(epoch, model, optimizer, scheduler)
 
     if phase == 'train':
-        saver.save_model(model, epoch_score[val_score_name], epoch, final=True)
+        saver.save_model(model, epoch_score[val_score_name], epoch, final=False)
 
     for phase in phases:
         writers[phase].close()
