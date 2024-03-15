@@ -34,10 +34,11 @@ class modl_dataset(Dataset):
                 k_space_usamp = SenseOp.fwd(gt[np.newaxis,:,:])  
                 k_space_usamp = k_space_usamp.numpy()
                
-                k_split_mask = np.transpose(k_space_usamp[0], (1, 2, 0))
+                # k_split_mask = np.transpose(k_space_usamp[0], (1, 2, 0))
      
                 # trn_mask, loss_mask = mask, mask   
-                trn_mask, loss_mask = ssdu.uniform_selection(k_split_mask, mask)
+                # trn_mask, loss_mask = ssdu.uniform_selection(k_split_mask, mask)
+                trn_mask, loss_mask = ssdu.Gaussian_selection(k_space_usamp, mask, std_scale=6)
                 trn_mask = trn_mask.astype(np.int8)
                 loss_mask = loss_mask.astype(np.int8)
                 x0 = undersample_(gt, csm, trn_mask, self.sigma)
