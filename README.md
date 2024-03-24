@@ -1,6 +1,6 @@
 # MoDL & VarNet & SSDU
 
-This project compares Supervised and Self-Supervised Learning implemented by PyTorch for MRI image reconstruction. 
+**This project compares Supervised and Self-Supervised Learning implemented by PyTorch for MRI image reconstruction.** 
 
 MoDL: Model Based Deep Learning Architecture for Inverse Problems 
 
@@ -40,7 +40,8 @@ The multi-coil brain dataset used in the original paper is publically available.
 
 **Download Link** : https://drive.google.com/file/d/1qp-l9kJbRfQU1W5wCjOQZi7I3T6jwA37/view?usp=sharing
 
-For processed taining and testing fastMRI axial T2 brain datasets, you can download from the following link: https://drive.google.com/file/d/18hGurziu8zMoyyN3MvhiljvfHZCaaOaz/view?usp=drive_link
+For processed taining and testing fastMRI axial T2 brain datasets, you can download from the following link.
+**Download Link** : https://drive.google.com/file/d/18hGurziu8zMoyyN3MvhiljvfHZCaaOaz/view?usp=drive_link
 
 ## Configuration file
 
@@ -68,6 +69,6 @@ scripts/test.sh
 
 Saved models are provided.
 
-K=1: `workspace/base_modl,k=1/checkpoints/final.epoch0049-score37.3514.pth` 
+MoDL: `workspace/base_modl,k=2/checkpoints/final.epoch0039-score19.9291.pth` 
 
-K=10: `workspace/base_modl,k=10/checkpoints/final.epoch0049-score39.6311.pth`
+VarNet: `workspace/base_varnet,k=2/checkpoints/final.epoch0049-score37.5461.pth`
