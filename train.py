@@ -153,7 +153,7 @@ def main(args):
             saver.save_checkpoints(epoch, model, optimizer, scheduler)
 
     if phase == 'train':
-        saver.save_model(model, epoch_score[val_score_name], epoch, final=False)
+        saver.save_model(model, epoch_score[val_score_name], epoch, final=True)
 
     for phase in phases:
         writers[phase].close()
