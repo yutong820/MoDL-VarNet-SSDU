@@ -221,3 +221,58 @@ def display_img(x, mask, y, y_pred, score=None):
     if score:
         plt.suptitle('score: {:.4f}'.format(score))
     return fig
+
+def norm(tensor, axes=(0, 1, 2), keepdims=True):
+    """
+    Parameters
+    ----------
+    tensor : It can be in image space or k-space.
+    axes :  The default is (0, 1, 2).
+    keepdims : The default is True.
+
+    Returns
+    -------
+    tensor : applies l2-norm .
+
+    """     
+    for axis in axes:
+        tensor = np.linalg.norm(tensor, axis=axis, keepdims=True)
+
+    if not keepdims: return tensor.squeeze()
+
+    return tensor
+
+def find_center_ind(kspace, axes=(1, 2, 3)):
+    """
+    Parameters
+    ----------
+    kspace : nrow x ncol x ncoil.
+    axes :  The default is (1, 2, 3).
+
+    Returns
+    -------
+    the center of the k-space
+
+    """
+    center_locs = norm(kspace, axes=axes).squeeze()
+    
+    return np.argsort(center_locs)[-1:]
+
+def index_flatten2nd(ind, shape):
+    """
+    Parameters
+    ----------
+    ind : 1D vector containing chosen locations.
+    shape : shape of the matrix/tensor for mapping ind.
+
+    Returns
+    -------
+    list of >=2D indices containing non-zero locations
+
+    """
+
+    array = np.zeros(np.prod(shape))
+    array[ind] = 1
+    ind_nd = np.nonzero(np.reshape(array, shape))
+
+    return [list(ind_nd_ii) for ind_nd_ii in ind_nd]
