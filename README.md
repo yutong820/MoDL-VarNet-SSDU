@@ -68,7 +68,6 @@ scripts/test.sh
 ## Saved models
 
 Saved models are provided.
+For example:
+`workspace/base_modl,k=2/checkpoints/final.epoch0039-score19.9291.pth` 
 
-MoDL: `workspace/base_modl,k=2/checkpoints/final.epoch0039-score19.9291.pth` 
-
-VarNet: `workspace/base_varnet,k=2/checkpoints/final.epoch0049-score37.5461.pth`
