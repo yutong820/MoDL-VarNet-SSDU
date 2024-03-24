@@ -1,6 +1,6 @@
 # MoDL & VarNet & SSDU
 
-PyTorch implementation Supervised and Self-Supervised Learning:
+This project compares Supervised and Self-Supervised Learning implemented by PyTorch for MRI image reconstruction. 
 
 MoDL: Model Based Deep Learning Architecture for Inverse Problems 
 
@@ -10,13 +10,13 @@ VarNet: Learning a Variational Network for Reconstruction of Accelerated MRI Dat
 
 Official code: https://github.com/VLOGroup/mri-variationalnetwork
 
-![alt text](network.png)
+![alt text](png/Supervised_learning.png)
 
 SSDU: Self-supervised learning of physics-guided reconstruction neural networks without fully sampled reference data
 
 Official code: https://github.com/byaman14/SSDU
 
-![alt text](SSdu.PNG)
+![alt text](png/Self_Suoervised_learning.PNG)
 
 ## Reference papers
 
