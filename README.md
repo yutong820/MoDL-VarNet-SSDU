@@ -40,7 +40,7 @@ The multi-coil brain dataset used in the original paper is publically available.
 
 **Download Link** : https://drive.google.com/file/d/1qp-l9kJbRfQU1W5wCjOQZi7I3T6jwA37/view?usp=sharing
 
-For processed taining and testing fastMRI axial T2 brain datasets, you can download from the following link:
+For processed taining and testing fastMRI axial T2 brain datasets, you can download from the following link: https://drive.google.com/file/d/18hGurziu8zMoyyN3MvhiljvfHZCaaOaz/view?usp=drive_link
 
 ## Configuration file
 
