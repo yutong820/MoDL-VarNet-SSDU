@@ -65,9 +65,9 @@ You can change the configuration file for testing by modifying the `test.sh` fil
 scripts/test.sh
 ```
 
-## Saved models
+## Saved model
 
-Saved models are provided.
+Saved model are provided.
 For example:
 `workspace/base_modl,k=2/checkpoints/final.epoch0039-score19.9291.pth` 
 
