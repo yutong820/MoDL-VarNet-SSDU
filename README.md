@@ -1,6 +1,23 @@
-# MoDL & VarNet & SSDU
+# Computional Imaging Project 
 
-**This project compares Supervised and Self-Supervised Learning implemented by PyTorch for MRI image reconstruction.** 
+This project compares Supervised and Self-Supervised Learning implemented by MoDL, VarNet and SSDU networks for MRI image reconstruction. The implemented networks are MoDL, VarNat(supervised learning) and SSDU(self-supervised learning).
+
+## Processed fastMRI dataset
+
+In this project we used fastMRI axial T2 brain datasets. 
+For the network training and testing, you can download the processed datasets from the following link.
+
+**Download Link** : https://drive.google.com/file/d/18hGurziu8zMoyyN3MvhiljvfHZCaaOaz/view?usp=drive_link
+
+##  Results and Contributes
+
+1.Self-supervised learning performances better image reconstruction quality at lower undersample folder, while supervised learning is better at high undersample folder.
+
+2.All the three networks, MoDL, VarNet and SSDU can achieve better reconstruction perforamce with the increase of the number of trainable parameters, but the overfiting should also be considered.
+
+3.For SSDU, Gaussian undersampled selection performances better image reconstruction quality than Uniform undersampled selection.
+
+## Network structure
 
 MoDL: Model Based Deep Learning Architecture for Inverse Problems 
 
@@ -33,15 +50,6 @@ Link: https://arxiv.org/abs/1704.00447
 SSDU: Self-supervised learning of physics-guided reconstruction neural networks without fully sampled reference data by Yaman, B., Hosseini, S. A. H., Moeller, S., Ellermann, J., Uğurbil, K., & Akçakaya, M on Magnetic Resonance in Medicine, 2020
 
 Link: https://arxiv.org/abs/1912.07669
-
-## Dataset
-
-The multi-coil brain dataset used in the original paper is publically available. You can download the dataset from the following link and locate in under the `data` directory.
-
-**Download Link** : https://drive.google.com/file/d/1qp-l9kJbRfQU1W5wCjOQZi7I3T6jwA37/view?usp=sharing
-
-For processed taining and testing fastMRI axial T2 brain datasets, you can download from the following link.
-**Download Link** : https://drive.google.com/file/d/18hGurziu8zMoyyN3MvhiljvfHZCaaOaz/view?usp=drive_link
 
 ## Configuration file
 
