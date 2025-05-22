@@ -11,6 +11,8 @@ For the network training and testing, you can download the processed datasets fr
 
 ##  Results and Contributes
 
+![Result](png/recon_results.png)
+
 1.Self-supervised learning performances better image reconstruction quality at lower undersample folder, while supervised learning is better at high undersample folder.
 
 2.All the three networks, MoDL, VarNet and SSDU can achieve better reconstruction perforamce with the increase of the number of trainable parameters, but the overfiting should also be considered.
